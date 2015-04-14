@@ -11,11 +11,12 @@
   <h1>Reddit Back When</h1>
   <label class="control-label">Subreddit</label>
   <autocomplete ng-model="sub" data="mostPop"></autocomplete>
-  <br>
-  <a target=_blank href="{{url()}}">{{url()}}</a>
+
   <br>
   {{dtToTimeStamp()}}
   <datepicker ng-model="dt" show-weeks="true" class="well well-sm"></datepicker>
+  <br>
+  <a class="col-sm-offset-1" target=_blank href="{{url()}}"><button class="btn btn-success">Go!</button></a>
 
 </div>
 </div>
@@ -33,7 +34,6 @@
 <script>
 var app = angular.module('myApp', ['ui.bootstrap','autocomplete']);
 app.controller('myCtrl', ['$scope', function($scope) {
-  $scope.sub = 'askscience'
   $scope.url = function() {
     return 'http://www.reddit.com/r/' + $scope.sub + '/search?sort=top&q=timestamp%3A' +
     dtToTimeStamp()+'..'+(dtToTimeStamp()+60*60*24)+'&restrict_sr=on&syntax=cloudsearch'
