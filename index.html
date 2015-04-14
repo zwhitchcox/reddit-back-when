@@ -2,6 +2,11 @@
 <head>
   <title>Reddit Back When</title>
 </head>
+<style>
+.aligngo {
+  margin-top:27px;
+}
+</style>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.rawgit.com/JustGoscha/allmighty-autocomplete/master/style/autocomplete.css" rel="stylesheet">
 <div ng-app="myApp" ng-controller="myCtrl" ng-cloak>
@@ -9,14 +14,20 @@
 <div class="jumbotron">
 <div class="container">
   <h1>Reddit Back When</h1>
+  <p>A time machine for Reddit</p>
+  <div class="row">
+  <span class="col-xs-9">
   <label class="control-label">Subreddit</label>
   <autocomplete ng-model="sub" data="mostPop"></autocomplete>
-
+  </span>
+  <span class="col-xs-3"><a class="col-xs-offset-1" target=_blank href="{{url()}}">
+    <button class="btn btn-success aligngo">Go!</button></a>
+  </span>
+  </div>
   <br>
   {{dtToTimeStamp()}}
   <datepicker ng-model="dt" show-weeks="true" class="well well-sm"></datepicker>
   <br>
-  <a class="col-sm-offset-1" target=_blank href="{{url()}}"><button class="btn btn-success">Go!</button></a>
 
 </div>
 </div>
