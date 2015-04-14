@@ -2,20 +2,30 @@
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-41646350-4', 'auto');
   ga('send', 'pageview');
 
 </script>
+<head>
+  <title>Reddit Back When</title>
+</head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<div ng-app="myApp" ng-controller="myCtrl" ng-cloak>
 
-<div ng-app="myApp" ng-controller="myCtrl">
+<div class="jumbotron">
+<div class="container">
+  <h1>Reddit Back When</h1>
+  subreddit: <input ng-model="sub">
+  <br>
+  <a target=_blank href="{{url()}}">{{url()}}</a>
+  <br>
+  {{dtToTimeStamp()}}
+  <datepicker ng-model="dt" show-weeks="true" class="well well-sm"></datepicker>
 
-subreddit: <input ng-model="sub">
-<button ng-click="back()">back</button>
-{{the_date()|date}}
-<br>
-<a target=_blank href="{{url()}}">{{url()}}</a>
+</div>
+</div>
 
 </div>
 
@@ -23,21 +33,24 @@ subreddit: <input ng-model="sub">
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
+
 <script>
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ui.bootstrap']);
 app.controller('myCtrl', function($scope) {
   $scope.sub = 'askscience'
   $scope.url = function() {
     return 'http://www.reddit.com/r/' + $scope.sub + '/search?sort=top&q=timestamp%3A' +
-      $scope.date+'..'+($scope.date+60*60*24)+'&restrict_sr=on&syntax=cloudsearch'
+    dtToTimeStamp()+'..'+(dtToTimeStamp()+60*60*24)+'&restrict_sr=on&syntax=cloudsearch'
 
   }
-  $scope.date = Math.floor(Date.now() / 1000) - (60*60*24)
-  $scope.back = function() {
-    $scope.date -= (60*60*24)
-  }
-  $scope.the_date = function() {
-    return $scope.date * 1000
+  dtToTimeStamp = function() {
+    if ($scope.dt === undefined || $scope.dt === null)
+      return Math.floor(Date.now()/1000)
+    return Math.floor(Date.parse($scope.dt).getTime()/1000)
   }
 })
+
 </script>
